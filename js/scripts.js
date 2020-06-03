@@ -241,7 +241,7 @@ void function () {
   function showNextGroupOfElements() {
     $('.users-table').children('div:hidden').each(function (index, element) {
       if (index < 20) {
-        $(element).fadeIn();
+        $(element).fadeIn('slow');
       }
     });
   }

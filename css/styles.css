@@ -1,3 +1,23 @@
+.search-box {
+  margin: 6px auto;
+  display: flex;
+  max-width: 500px;
+  justify-content: flex-end;
+}
+.search-box input {
+  border: 2px solid #7474dd;
+  border-radius: 14px;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  -khtml-border-radius: 14px;
+  background: #ffffff !important;
+  outline: none;
+  height: 24px;
+  width: 260px;
+  color: #3a3535;
+  font-size: 14px;
+  font-family: Tahoma;
+}
 .options,
 .users-table {
   max-width: 500px;
