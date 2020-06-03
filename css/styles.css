@@ -11,7 +11,7 @@
   flex-direction: column;
 }
 .options .sorting {
-  width: 60%;
+  width: 45%;
 }
 .options .sorting .type,
 .options .sorting .direction {
@@ -23,6 +23,9 @@
   width: 40%;
   display: flex;
   justify-content: center;
+}
+.options .i18n {
+  width: 10%;
 }
 .options .view .radio-button {
   display: flex;

@@ -16,7 +16,7 @@ void function () {
       value: 0
     },
     i18n: {
-      dictionary: ['ru', 'en'],
+      dictionary: ['en', 'ru'],
       value: 0
     }
   };
@@ -32,7 +32,7 @@ void function () {
       const optionName = $(this).text().toLowerCase();
       const groupName = $(this).parent().attr('class').toLowerCase();
 
-      groupName === 'view'
+      groupName === 'view' || groupName === 'i18n'
         ? options[groupName].value = options[groupName].dictionary.indexOf(optionName)
         : options.sorting[groupName].value = options.sorting[groupName].dictionary.indexOf(optionName);
       
@@ -67,8 +67,12 @@ void function () {
     const type = options.sorting.type.dictionary[options.sorting.type.value];
     const direction = options.sorting.direction.dictionary[options.sorting.direction.value];
     const view = options.view.dictionary[options.view.value];
+    const i18n = options.i18n.dictionary[options.i18n.value];
     
-    $(`.radio-button.${type}, .radio-button.${direction}, .radio-button.${view}`).addClass('active');
+    $(`.radio-button.${type}, 
+       .radio-button.${direction}, 
+       .radio-button.${view}, 
+       .radio-button.${i18n}`).addClass('active');
   }
 
   /**
@@ -79,18 +83,18 @@ void function () {
     $.each(usersData, function(index, value) {
       const cardTableTemplate = $('.templates .card-table').clone();
       const cardPreviewTemplate = $('.templates .card-preview').clone();
-      const usersTableContainer = $('.users-table');
       const view = options.view.dictionary[options.view.value];
+      const i18n = options.i18n.dictionary[options.i18n.value];
 
       cardTableTemplate.find('.image>img').attr('src', `images/${value.image}.svg`);
       cardPreviewTemplate.find('.image>img').attr('src', `images/${value.image}.svg`);
-      cardTableTemplate.find('.name').text(value.name.en);
-      cardPreviewTemplate.find('.name').text(value.name.en);
+      cardTableTemplate.find('.name').text(value.name[i18n]);
+      cardPreviewTemplate.find('.name').text(value.name[i18n]);
       cardTableTemplate.find('.age').text(value.age);
       cardPreviewTemplate.find('.age').text(value.age);
       cardTableTemplate.find('.phone').text(value.phone);
       cardPreviewTemplate.find('.phone').text(value.phone);
-      cardPreviewTemplate.find('.phrase').text(value.phrase.en);
+      cardPreviewTemplate.find('.phrase').text(value.phrase[i18n]);
 
       if (value.video) {
         cardPreviewTemplate.find('video source').attr('src', `videos/${value.image}.mp4`);
