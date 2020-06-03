@@ -78,11 +78,48 @@ void function () {
     $('.users-table').text('');
     $.each(usersData, function(index, value) {
       const cardTableTemplate = $('.templates .card-table').clone();
+      const cardPreviewTemplate = $('.templates .card-preview').clone();
+      const usersTableContainer = $('.users-table');
+      const view = options.view.dictionary[options.view.value];
+
       cardTableTemplate.find('.image>img').attr('src', `images/${value.image}.svg`);
+      cardPreviewTemplate.find('.image>img').attr('src', `images/${value.image}.svg`);
       cardTableTemplate.find('.name').text(value.name.en);
+      cardPreviewTemplate.find('.name').text(value.name.en);
       cardTableTemplate.find('.age').text(value.age);
+      cardPreviewTemplate.find('.age').text(value.age);
       cardTableTemplate.find('.phone').text(value.phone);
-      cardTableTemplate.appendTo('.users-table');
+      cardPreviewTemplate.find('.phone').text(value.phone);
+      cardPreviewTemplate.find('.phrase').text(value.phrase.en);
+
+      if (value.video) {
+        cardPreviewTemplate.find('video source').attr('src', `videos/${value.image}.mp4`);
+        cardPreviewTemplate.css({
+          'display': 'flex',
+          'width': '96%',
+          'max-width': '467px'
+        });
+      } else {
+        cardPreviewTemplate.find('.video').parent().css({ 'display': 'none' });
+        cardPreviewTemplate.css({ 
+          'width': '220px',
+          'display': 'inline-table',
+          'margin-right': '10px',
+          'height': 'auto'
+        });
+      }
+      
+      if (view === 'table') {
+        cardTableTemplate.appendTo('.users-table');
+        usersTableContainer.css({
+          'display': 'flex'
+        });
+      } else {
+        cardPreviewTemplate.appendTo('.users-table');
+        usersTableContainer.css({
+          'display': 'block'
+        });
+      }
     });
   }
 
@@ -93,10 +130,6 @@ void function () {
     const type = options.sorting.type.dictionary[options.sorting.type.value];
     const direction = options.sorting.direction.dictionary[options.sorting.direction.value];
     
-    //usersData.sort((a, b) => a.age < b.age);
-
-    console.log(type, direction);
-
     userData = usersData.sort((a, b) => {
       if (type === 'name') {
         return direction === 'ascending'
@@ -108,7 +141,5 @@ void function () {
           : b[type] - a[type];
       }
     });
-
-    console.log(usersData);
   }
 }();
