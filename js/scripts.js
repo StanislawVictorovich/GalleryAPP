@@ -21,6 +21,44 @@ void function () {
     }
   };
   let usersData = null;
+  const i18nOptions = {
+    id: {
+      en: 'Id',
+      ru: 'Айди'
+    },
+    name: {
+      en: 'Name',
+      ru: 'Имя'
+    },
+    age: {
+      en: 'Age',
+      ru: 'Возраст'
+    },
+    ascending: {
+      en: 'Ascending',
+      ru: 'По-возрастанию'
+    },
+    descending: {
+      en: 'Descending',
+      ru: 'По-убыванию'
+    },
+    table: {
+      en: 'Table',
+      ru: 'Таблица'
+    },
+    preview: {
+      en: 'Preview',
+      ru: 'Превью'
+    },
+    en: {
+      en: 'EN',
+      ru: 'АНГЛ'
+    },
+    ru: {
+      en: 'RU',
+      ru: 'РУС'
+    }
+  }
 
   $(document).ready(function () {
     updateViewOptions();
@@ -73,13 +111,35 @@ void function () {
        .radio-button.${direction}, 
        .radio-button.${view}, 
        .radio-button.${i18n}`).addClass('active');
+    
+    $('.radio-button').each(function (index, element) {
+      let buttonName = getButtonName($(element).attr('class'));
+      $(`.${buttonName} span`).text(i18nOptions[buttonName][i18n]);
+    });
   }
 
+  /**
+   * Calculates clear button name from string of classes
+   * @param {string} classNames string of class names
+   */
+  function getButtonName(classNames) {
+    classNames = classNames.replace('radio-button', '');
+    classNames = classNames.replace('active', '');
+    return classNames.trim();
+  }
   /**
    * Fills table on view from the model
    */
   function updateTableView() {
+    const i18n = options.i18n.dictionary[options.i18n.value];
+
     $('.users-table').text('');
+    
+    $('.radio-button').each(function (index, element) {
+      let buttonName = getButtonName($(element).attr('class'));
+      $(`.${buttonName} span`).text(i18nOptions[buttonName][i18n]);
+    });
+  
     $.each(usersData, function(index, value) {
       const cardTableTemplate = $('.templates .card-table').clone();
       const cardPreviewTemplate = $('.templates .card-preview').clone();
