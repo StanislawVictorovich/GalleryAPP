@@ -1,10 +1,13 @@
 .options,
 .users-table {
-  display: flex;
   max-width: 500px;
   margin: auto;
 }
+.options {
+  display: flex;
+}
 .users-table {
+  display: block;
   flex-direction: column;
 }
 .options .sorting {
@@ -106,8 +109,8 @@
   font-family: arial;
 }
 .card-preview .video>video {
-  width: 286px;
-  padding: 10px 10px 0 0;
+  width: 252px;
+  padding: 4px 5px 0 0;
 }
 
 .flex-table {
@@ -117,13 +120,16 @@
   display: block;
 }
 
-.card-table {
+.card-preview-video {
   display: flex;
-  width: 100%;
+  width: 96%;
+  max-width: 467px;
 }
-.card-view {
-  display: inline-block;
+.card-preview-no-video {
   width: 220px;
+  display: inline-table;
+  margin-right: 10px;
+  height: auto;
 }
 
 .templates {
@@ -134,5 +140,16 @@
 @media (max-width: 370px) {
   .options {
     flex-direction: column;
+  }
+}
+@media (max-width: 527px) {
+  .card-preview {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: none;
+    flex-direction: column;
+  }
+  .card-preview .video>video {
+    width: 100%;
   }
 }

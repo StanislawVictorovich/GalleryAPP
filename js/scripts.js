@@ -94,31 +94,16 @@ void function () {
 
       if (value.video) {
         cardPreviewTemplate.find('video source').attr('src', `videos/${value.image}.mp4`);
-        cardPreviewTemplate.css({
-          'display': 'flex',
-          'width': '96%',
-          'max-width': '467px'
-        });
+        cardPreviewTemplate.addClass('card-preview-video');
       } else {
         cardPreviewTemplate.find('.video').parent().css({ 'display': 'none' });
-        cardPreviewTemplate.css({ 
-          'width': '220px',
-          'display': 'inline-table',
-          'margin-right': '10px',
-          'height': 'auto'
-        });
+        cardPreviewTemplate.addClass('card-preview-no-video');
       }
       
       if (view === 'table') {
         cardTableTemplate.appendTo('.users-table');
-        usersTableContainer.css({
-          'display': 'flex'
-        });
       } else {
         cardPreviewTemplate.appendTo('.users-table');
-        usersTableContainer.css({
-          'display': 'block'
-        });
       }
     });
   }
