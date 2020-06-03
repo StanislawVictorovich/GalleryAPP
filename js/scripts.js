@@ -1,6 +1,6 @@
 void function () {
   const endpointUrl = 'https://api.npoint.io/f310dbb82460d4c81542';
-  const options = {
+  let options = {
     sorting: {
       type: {
         dictionary: ['id', 'name', 'age'],
@@ -67,7 +67,7 @@ void function () {
      * Radio-buttons logic in the options-block
      */
     $('.radio-button').on('click', function(e) {
-      const optionName = $(this).text().toLowerCase();
+      const optionName = getButtonName($(this).attr('class'));
       const groupName = $(this).parent().attr('class').toLowerCase();
 
       groupName === 'view' || groupName === 'i18n'
@@ -79,6 +79,7 @@ void function () {
 
       sortTableModel();
       updateTableView();
+      saveOptions();
     });
 
     getUserData()
@@ -102,6 +103,8 @@ void function () {
    * Updates options block on view from the model
    */
   function updateViewOptions() {
+    restoreOptions();
+
     const type = options.sorting.type.dictionary[options.sorting.type.value];
     const direction = options.sorting.direction.dictionary[options.sorting.direction.value];
     const view = options.view.dictionary[options.view.value];
@@ -190,5 +193,21 @@ void function () {
           : b[type] - a[type];
       }
     });
+
+  }
+  /**
+   * Restores options from the localstorage
+   */
+  function restoreOptions() {
+    const storageOptions = localStorage.getItem('options');
+    if (storageOptions) {
+      options = JSON.parse(storageOptions);
+    }
+  }
+  /**
+   * Saves selected user options to the local storage
+   */
+  function saveOptions() {
+    localStorage.setItem('options', JSON.stringify(options));
   }
 }();
