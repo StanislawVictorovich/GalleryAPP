@@ -90,6 +90,12 @@ void function () {
       });
   });
 
+  $(window).scroll(function() {
+    if(Math.ceil($(window).scrollTop() + $(window).height()) == $(document).height()) {
+      showNextGroupOfElements();
+    }
+  });
+
   /**
    * Gets user data from the end point
    * @returns promise with array of users data
@@ -173,6 +179,9 @@ void function () {
         cardPreviewTemplate.appendTo('.users-table');
       }
     });
+    
+    $('.users-table').children().hide();
+    showNextGroupOfElements();
   }
 
   /**
@@ -209,5 +218,31 @@ void function () {
    */
   function saveOptions() {
     localStorage.setItem('options', JSON.stringify(options));
+  }
+
+  /**
+   * Calculates visibility of the element
+   * @param {selector} elem css selector of the element
+   * @returns boolean value if scrolled element visible or out of the visibility
+   */
+  function isScrolledIntoView(elem) {
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+  }
+
+  /**
+   * Show next group of elements
+   */
+  function showNextGroupOfElements() {
+    $('.users-table').children('div:hidden').each(function (index, element) {
+      if (index < 20) {
+        $(element).fadeIn();
+      }
+    });
   }
 }();
